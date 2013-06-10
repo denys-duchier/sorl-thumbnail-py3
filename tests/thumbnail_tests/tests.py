@@ -21,6 +21,7 @@ from sorl.thumbnail.templatetags.thumbnail import margin
 from subprocess import Popen, PIPE
 from thumbnail_tests.models import Item
 from thumbnail_tests.storage import slog
+from functools import reduce
 
 
 handler = ThumbnailLogHandler()
@@ -274,11 +275,11 @@ class TemplateTestCaseA(SimpleTestCaseBase):
         val = render_to_string('thumbnail1.html', {
             'item': item,
         }).strip()
-        self.assertEqual(val, u'<img style="margin:0px 0px 0px 0px" width="200" height="100">')
+        self.assertEqual(val, '<img style="margin:0px 0px 0px 0px" width="200" height="100">')
         val = render_to_string('thumbnail2.html', {
             'item': item,
         }).strip()
-        self.assertEqual(val, u'<img style="margin:0px 50px 0px 50px" width="100" height="100">')
+        self.assertEqual(val, '<img style="margin:0px 50px 0px 50px" width="100" height="100">')
 
     def test_nested(self):
         item = Item.objects.get(image='500x500.jpg')
@@ -291,7 +292,7 @@ class TemplateTestCaseA(SimpleTestCaseBase):
 
     def test_serialization_options(self):
         item = Item.objects.get(image='500x500.jpg')
-        for j in xrange(0, 20):
+        for j in range(0, 20):
             # we could be lucky...
             val0 = render_to_string('thumbnail7.html', {
                 'item': item,
@@ -387,7 +388,7 @@ class TemplateTestCaseClient(unittest.TestCase):
         params = {
             'THUMBNAIL_DEBUG': False,
         }
-        for k, v in params.iteritems():
+        for k, v in params.items():
             self.org_settings[k] = getattr(settings, k)
             setattr(settings, k, v)
 
@@ -401,7 +402,7 @@ class TemplateTestCaseClient(unittest.TestCase):
         self.assertEqual(end, 'tests/media/invalid')
 
     def tearDown(self):
-        for k, v in self.org_settings.iteritems():
+        for k, v in self.org_settings.items():
             setattr(settings, k, v)
 
 
@@ -449,15 +450,15 @@ class CropTestCase(unittest.TestCase):
             th = self.backend.get_thumbnail(self.portrait, '100x100', crop=crop)
             engine = PILEngine()
             im = engine.get_image(th)
-            for x in xrange(0, 99, 10):
-                for y in xrange(0, 99, 10):
+            for x in range(0, 99, 10):
+                for y in range(0, 99, 10):
                     self.assertEqual(250 < mean_pixel(x, y) <= 255, True)
         for crop in ('bottom', '100%', '100px'):
             th = self.backend.get_thumbnail(self.portrait, '100x100', crop=crop)
             engine = PILEngine()
             im = engine.get_image(th)
-            for x in xrange(0, 99, 10):
-                for y in xrange(0, 99, 10):
+            for x in range(0, 99, 10):
+                for y in range(0, 99, 10):
                     self.assertEqual(0 <= mean_pixel(x, y) < 5, True)
 
     def testLandscapeCrop(self):
@@ -479,15 +480,15 @@ class CropTestCase(unittest.TestCase):
             th = self.backend.get_thumbnail(self.landscape, '100x100', crop=crop)
             engine = PILEngine()
             im = engine.get_image(th)
-            for x in xrange(0, 99, 10):
-                for y in xrange(0, 99, 10):
+            for x in range(0, 99, 10):
+                for y in range(0, 99, 10):
                     self.assertEqual(250 < mean_pixel(x, y) <= 255, True)
         for crop in ('right', '100%', '100px'):
             th = self.backend.get_thumbnail(self.landscape, '100x100', crop=crop)
             engine = PILEngine()
             im = engine.get_image(th)
-            for x in xrange(0, 99, 10):
-                for y in xrange(0, 99, 10):
+            for x in range(0, 99, 10):
+                for y in range(0, 99, 10):
                     self.assertEqual(0 <= mean_pixel(x, y) < 5, True)
 
     def tearDown(self):
@@ -501,7 +502,7 @@ class DummyTestCase(unittest.TestCase):
         params = {
             'THUMBNAIL_DUMMY': True,
         }
-        for k, v in params.iteritems():
+        for k, v in params.items():
             self.org_settings[k] = getattr(settings, k)
             setattr(settings, k, v)
 
@@ -519,7 +520,7 @@ class DummyTestCase(unittest.TestCase):
         self.assertEqual(val, '<img src="http://dummyimage.com/600x400" width="600" height="400">')
 
     def tearDown(self):
-        for k, v in self.org_settings.iteritems():
+        for k, v in self.org_settings.items():
             setattr(settings, k, v)
 
 
@@ -562,7 +563,7 @@ class TestInputCase(unittest.TestCase):
     def setUp(self):
         if not os.path.exists(settings.MEDIA_ROOT):
             os.makedirs(settings.MEDIA_ROOT)
-        self.name = u'åäö.jpg'
+        self.name = 'åäö.jpg'
         fn = pjoin(settings.MEDIA_ROOT, self.name)
         im = Image.new('L', (666, 666))
         im.save(fn)

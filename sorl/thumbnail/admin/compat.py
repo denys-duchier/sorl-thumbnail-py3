@@ -39,9 +39,9 @@ class AdminImageWidget(forms.FileInput):
                 pass
             else:
                 output = (
-                    u'<div style="float:left">'
-                    u'<a style="width:%spx;display:block;margin:0 0 10px" class="thumbnail" target="_blank" href="%s">'
-                    u'<img src="%s"></a>%s</div>'
+                    '<div style="float:left">'
+                    '<a style="width:%spx;display:block;margin:0 0 10px" class="thumbnail" target="_blank" href="%s">'
+                    '<img src="%s"></a>%s</div>'
                     ) % (mini.width, value.url, mini.url, output)
         return mark_safe(output)
 
@@ -50,9 +50,9 @@ class AdminClearWidget(forms.CheckboxInput):
     def render(self, name, value, attrs=None):
         output = super(AdminClearWidget, self).render(name, value, attrs)
         output = (
-            u'<div style="clear:both;padding-top:5px">'
-            u'<label for="id_%s">%s:</label>%s'
-            u'</div>'
+            '<div style="clear:both;padding-top:5px">'
+            '<label for="id_%s">%s:</label>%s'
+            '</div>'
             ) % (name, _('Clear image'), output)
         return mark_safe(output)
 

@@ -18,7 +18,7 @@ import sys
 sys.path.insert(0, os.path.pardir)
 import sorl
 
-for j in xrange(0, len(sphinx.__version__)):
+for j in range(0, len(sphinx.__version__)):
     try:
         version = float(sphinx.__version__[:-j])
         break
@@ -55,8 +55,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'sorl-thumbnail'
-copyright = u'2010, Mikko Hellsing'
+project = 'sorl-thumbnail'
+copyright = '2010, Mikko Hellsing'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -196,8 +196,8 @@ htmlhelp_basename = 'sorlthumbnaildoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'sorlthumbnail.tex', u'sorl-thumbnail Documentation',
-   u'Mikko Hellsing', 'manual'),
+  ('index', 'sorlthumbnail.tex', 'sorl-thumbnail Documentation',
+   'Mikko Hellsing', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -229,6 +229,6 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'sorlthumbnail', u'sorl-thumbnail Documentation',
-     [u'Mikko Hellsing'], 1)
+    ('index', 'sorlthumbnail', 'sorl-thumbnail Documentation',
+     ['Mikko Hellsing'], 1)
 ]

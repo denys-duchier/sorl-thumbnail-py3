@@ -39,7 +39,7 @@ class EngineBase(object):
         """
         crop = options['crop']
         upscale = options['upscale']
-        x_image, y_image = map(float, self.get_image_size(image))
+        x_image, y_image = list(map(float, self.get_image_size(image)))
         # calculate scaling factor
         factors = (geometry[0] / x_image, geometry[1] / y_image)
         factor = max(factors) if crop else min(factors)

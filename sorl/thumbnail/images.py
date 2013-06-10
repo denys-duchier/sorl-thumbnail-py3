@@ -1,5 +1,5 @@
 import re
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from django.core.files.base import File, ContentFile
 from django.core.files.storage import Storage, default_storage
 from django.core.urlresolvers import reverse
@@ -166,12 +166,12 @@ class DummyImageFile(BaseImageFile):
 
 class UrlStorage(Storage):
     def open(self, name):
-        return urllib2.urlopen(name)
+        return urllib.request.urlopen(name)
 
     def exists(self, name):
         try:
             self.open(name)
-        except urllib2.URLError:
+        except urllib.error.URLError:
             return False
         return True
 

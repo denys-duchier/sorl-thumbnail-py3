@@ -5,7 +5,7 @@ from sorl.thumbnail import default
 
 class Command(BaseCommand):
     help = (
-        u'Handles thumbnails and key value store'
+        'Handles thumbnails and key value store'
     )
     args = '[cleanup, clear]'
     option_list = BaseCommand.option_list
@@ -15,8 +15,8 @@ class Command(BaseCommand):
             raise CommandError('`%s` is not a valid argument' % cmd)
         if cmd == 'cleanup':
             default.kvstore.cleanup()
-            print 'Cleanup thumbnails done.'
+            print('Cleanup thumbnails done.')
         if cmd == 'clear':
             default.kvstore.clear()
-            print 'Cleared the Key Value Store.'
+            print('Cleared the Key Value Store.')
 

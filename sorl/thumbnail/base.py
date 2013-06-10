@@ -36,7 +36,7 @@ class ThumbnailBackend(object):
         secondly it will create it.
         """
         source = ImageFile(file_)
-        for key, value in self.default_options.iteritems():
+        for key, value in self.default_options.items():
             options.setdefault(key, value)
         # For the future I think it is better to add options only if they
         # differ from the default settings as below. This will ensure the same

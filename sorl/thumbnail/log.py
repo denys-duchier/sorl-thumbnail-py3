@@ -25,7 +25,7 @@ class ThumbnailLogHandler(logging.Handler):
             stack_trace = 'No stack trace available'
         message = "%s\n\n%s" % (stack_trace, request_repr)
         msg = EmailMessage(
-            u'[sorl-thumbnail] %s: %s' % (record.levelname, request_path),
+            '[sorl-thumbnail] %s: %s' % (record.levelname, request_path),
             message,
             settings.SERVER_EMAIL,
             [a[1] for a in settings.ADMINS],
