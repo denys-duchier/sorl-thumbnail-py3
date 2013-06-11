@@ -3,7 +3,10 @@ import urllib.request, urllib.error, urllib.parse
 from django.core.files.base import File, ContentFile
 from django.core.files.storage import Storage, default_storage
 from django.core.urlresolvers import reverse
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_str 
+except ImportError:
+    from django.utils.encoding import force_unicode as force_str 
 from django.utils.functional import LazyObject
 from django.utils import simplejson
 from sorl.thumbnail.conf import settings
@@ -74,7 +77,7 @@ class ImageFile(BaseImageFile):
         if hasattr(file_, 'name'):
             self.name = file_.name
         else:
-            self.name = force_unicode(file_)
+            self.name = force_str(file_)
         # figure out storage
         if storage is not None:
             self.storage = storage
