@@ -93,9 +93,14 @@ class ThumbnailNode(ThumbnailNodeBase):
         if settings.THUMBNAIL_DUMMY:
             thumbnail = DummyImageFile(geometry)
         elif file_:
-            thumbnail = default.backend.get_thumbnail(
-                file_, geometry, **options
-                )
+            try:
+                thumbnail = default.backend.get_thumbnail(
+                    file_, geometry, **options
+                    )
+            except:
+                import traceback
+                traceback.print_exc()
+                raise
         else:
             return self.nodelist_empty.render(context)
         context.push()
