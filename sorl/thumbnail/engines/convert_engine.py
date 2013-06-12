@@ -3,7 +3,7 @@ import re
 import os
 from django.utils.datastructures import SortedDict
 from django.utils.encoding import smart_str
-from sorl.thumbnail.base import EXTENSIONS
+from sorl.thumbnail.base import EXTENSIONS, iteritems
 from sorl.thumbnail.conf import settings
 from sorl.thumbnail.engines.base import EngineBase
 from subprocess import Popen, PIPE
@@ -30,12 +30,12 @@ class Engine(EngineBase):
         image['options']['quality'] = options['quality']
         args = settings.THUMBNAIL_CONVERT.split(' ')
         args.append(image['source'])
-        for k, v in image['options'].iteritems():
+        for k, v in iteritems(image['options']):
             args.append('-%s' % k)
             if v is not None:
                 args.append('%s' % v)
         args.append(out)
-        args = map(smart_str, args)
+        args = list(map(smart_str, args))
         p = Popen(args)
         p.wait()
         with open(out, 'rb') as fp:

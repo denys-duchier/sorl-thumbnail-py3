@@ -15,6 +15,9 @@ import os
 import sphinx
 import sys
 
+if sys.version_info[0] >= 3:
+    xrange = range
+
 sys.path.insert(0, os.path.pardir)
 import sorl
 

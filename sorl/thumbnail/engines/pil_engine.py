@@ -1,4 +1,8 @@
-from cStringIO import StringIO
+import sys
+if sys.version_info[0] >= 3:
+    from io import BytesIO as StringIO
+else:
+    from cStringIO import StringIO
 from sorl.thumbnail.engines.base import EngineBase
 
 try:

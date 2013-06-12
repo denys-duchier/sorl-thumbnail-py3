@@ -4,6 +4,16 @@ from django.utils.encoding import smart_str
 from django.utils.importlib import import_module
 from django.utils import simplejson
 
+import sys
+if sys.version_info[0] >= 3:
+    PY3 = True
+    def iteritems(l):
+        return l.items()
+else:
+    PY3 = False
+    def iteritems(l):
+        return l.iteritems()
+
 
 class ThumbnailError(Exception):
     pass
@@ -32,6 +42,8 @@ def tokey(*args):
     Computes a (hopefully) unique key from arguments given.
     """
     salt = '||'.join([smart_str(arg) for arg in args])
+    if PY3:
+        salt = salt.encode("utf-8")
     hash_ = hashlib.md5(salt)
     return hash_.hexdigest()
 
@@ -52,7 +64,7 @@ def get_module_class(class_path):
     try:
         mod_name, cls_name = class_path.rsplit('.', 1)
         mod = import_module(mod_name)
-    except ImportError, e:
+    except ImportError as e:
         raise ImproperlyConfigured(('Error importing module %s: "%s"' %
                                    (mod_name, e)))
     return getattr(mod, cls_name)

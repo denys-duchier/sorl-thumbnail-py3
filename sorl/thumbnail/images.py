@@ -1,9 +1,17 @@
 import re
-import urllib2
+from sorl.thumbnail.helpers import PY3
+if PY3:
+    from urllib.request import urlopen as URLOPEN
+    from urllib.error import URLError as URLERROR
+else:
+    from urllib2 import urlopen as URLOPEN, URLError as URLERROR
 from django.core.files.base import File, ContentFile
 from django.core.files.storage import Storage, default_storage
 from django.core.urlresolvers import reverse
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_str as force_unicode
+except:
+    from django.utils.encoding import force_unicode
 from django.utils.functional import LazyObject
 from django.utils import simplejson
 from sorl.thumbnail.conf import settings
@@ -166,12 +174,12 @@ class DummyImageFile(BaseImageFile):
 
 class UrlStorage(Storage):
     def open(self, name):
-        return urllib2.urlopen(name)
+        return URLOPEN(name)
 
     def exists(self, name):
         try:
             self.open(name)
-        except urllib2.URLError:
+        except URLERROR:
             return False
         return True
 

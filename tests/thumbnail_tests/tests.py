@@ -21,6 +21,10 @@ from sorl.thumbnail.templatetags.thumbnail import margin
 from subprocess import Popen, PIPE
 from thumbnail_tests.models import Item
 from thumbnail_tests.storage import slog
+from sorl.thumbnail.base import PY3, iteritems
+if PY3:
+    from functools import reduce
+    xrange=range
 
 
 handler = ThumbnailLogHandler()
@@ -387,7 +391,7 @@ class TemplateTestCaseClient(unittest.TestCase):
         params = {
             'THUMBNAIL_DEBUG': False,
         }
-        for k, v in params.iteritems():
+        for k, v in iteritems(params):
             self.org_settings[k] = getattr(settings, k)
             setattr(settings, k, v)
 
@@ -401,7 +405,7 @@ class TemplateTestCaseClient(unittest.TestCase):
         self.assertEqual(end, 'tests/media/invalid')
 
     def tearDown(self):
-        for k, v in self.org_settings.iteritems():
+        for k, v in iteritems(self.org_settings):
             setattr(settings, k, v)
 
 
@@ -501,7 +505,7 @@ class DummyTestCase(unittest.TestCase):
         params = {
             'THUMBNAIL_DUMMY': True,
         }
-        for k, v in params.iteritems():
+        for k, v in iteritems(params):
             self.org_settings[k] = getattr(settings, k)
             setattr(settings, k, v)
 
@@ -519,7 +523,7 @@ class DummyTestCase(unittest.TestCase):
         self.assertEqual(val, '<img src="http://dummyimage.com/600x400" width="600" height="400">')
 
     def tearDown(self):
-        for k, v in self.org_settings.iteritems():
+        for k, v in iteritems(self.org_settings):
             setattr(settings, k, v)
 
 

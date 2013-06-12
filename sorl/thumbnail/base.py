@@ -1,9 +1,8 @@
 from sorl.thumbnail.conf import settings, defaults as default_settings
-from sorl.thumbnail.helpers import tokey, serialize
+from sorl.thumbnail.helpers import tokey, serialize, PY3, iteritems
 from sorl.thumbnail.images import ImageFile
 from sorl.thumbnail import default
 from sorl.thumbnail.parsers import parse_geometry
-
 
 EXTENSIONS = {
     'JPEG': 'jpg',
@@ -36,7 +35,7 @@ class ThumbnailBackend(object):
         secondly it will create it.
         """
         source = ImageFile(file_)
-        for key, value in self.default_options.iteritems():
+        for key, value in iteritems(self.default_options):
             options.setdefault(key, value)
         # For the future I think it is better to add options only if they
         # differ from the default settings as below. This will ensure the same

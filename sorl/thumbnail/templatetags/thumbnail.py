@@ -8,6 +8,9 @@ from sorl.thumbnail.conf import settings
 from sorl.thumbnail.images import ImageFile, DummyImageFile
 from sorl.thumbnail import default
 from sorl.thumbnail.parsers import parse_geometry
+from sorl.thumbnail.base import PY3
+if PY3:
+    unicode=str
 
 
 register = Library()
