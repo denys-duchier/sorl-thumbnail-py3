@@ -14,7 +14,7 @@ except:
     from django.utils.encoding import force_unicode
 from django.utils.functional import LazyObject
 try:
-    import json
+    import json as simplejson
 except ImportError:
     from django.utils import simplejson
 from sorl.thumbnail.conf import settings

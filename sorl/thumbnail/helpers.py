@@ -3,7 +3,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.encoding import smart_str
 from django.utils.importlib import import_module
 try:
-    import json
+    import json as simplejson
 except ImportError:
     from django.utils import simplejson
 
