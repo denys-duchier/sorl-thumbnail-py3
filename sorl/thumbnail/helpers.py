@@ -2,7 +2,10 @@ import hashlib
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.encoding import smart_str
 from django.utils.importlib import import_module
-from django.utils import simplejson
+try:
+    import json
+except ImportError:
+    from django.utils import simplejson
 
 import sys
 if sys.version_info[0] >= 3:
